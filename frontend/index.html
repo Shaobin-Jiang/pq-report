@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Game</title>
+    <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- AI Player Area (Top) -->
+        <div id="ai-area" class="player-area">
+            <h2>对手手牌</h2>
+            <div id="ai-hand" class="card-hand">
+                <!-- AI cards will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Game Center Area -->
+        <div id="game-center">
+            <div class="center-content">
+                <!-- Left pile (draw pile) -->
+                <div id="left-pile" class="card-pile">
+                    <div class="pile-label">普通牌</div>
+                    <div class="pile-cards">
+                        <img src="/src/images/Back1.png" alt="Card Back" class="card-back pile-card">
+                    </div>
+                </div>
+
+                <!-- Right pile (reward pile) -->
+                <div id="right-pile" class="card-pile">
+                    <div class="pile-label">效果牌</div>
+                    <div class="pile-cards">
+                        <img src="/src/images/Back2.png" alt="Card Back" class="card-back pile-card">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Status -->
+            <div id="game-status">
+                <p id="status-message"></p>
+                <button id="start-game-btn" class="game-btn">开始游戏</button>
+            </div>
+        </div>
+
+        <!-- User Player Area (Bottom) -->
+        <div id="user-area" class="player-area">
+            <h2>您的手牌</h2>
+            <div id="user-hand" class="card-hand">
+                <!-- User cards will be dynamically added here -->
+            </div>
+            <div id="user-actions">
+                <button id="discard-btn" class="game-btn" disabled>弃掉选中的牌</button>
+            </div>
+        </div>
+
+        <!-- Right Toolbar -->
+        <div id="toolbar">
+            <h3>PQ 牌</h3>
+            <div class="toolbar-widget">
+                <h4>您的倍率: <span id="user-rate">1</span></h4>
+                <h4 style="color: salmon;">对方倍率: <span id="ai-rate">1</span></h4>
+                <h4 style="color: skyblue;">当前回合: <span id="current-round">0</span></h4>
+            </div>
+            <div class="toolbar-widget">
+                <button id="reset-game-btn" class="game-btn">重新开始</button>
+            </div>
+            <div class="toolbar-widget">
+                <h4>游戏规则</h4>
+                <p>每一回合，双方都会抽一张牌，弃一张牌。</p>
+                <p>被弃掉的两张牌会被进行比较大小</p>
+                <br>
+                <p>随后，您需要完成系统给您的试炼。需知，试炼有其代价</p>
+                <p>如若您在比较牌面大小中失利或打平，对手将会获得强力的加成，但若通过试炼则可避免</p>
+                <p>同样，如若您弃掉了较大的牌面，您将有机会获得强力加成，但若未通过试炼则是竹篮打水</p>
+                <br>
+                <p>十回合后，手牌得分与倍率的乘积更大的一方将会获胜</p>
+            </div>
+        </div>
+
+        <!-- Comparison Area -->
+        <div id="comparison-area" class="hidden">
+            <h3>弃牌大小比较</h3>
+            <div class="comparison-cards">
+                <div class="comparison-card">
+                    <p>您的弃牌</p>
+                    <div id="user-played-card"></div>
+                </div>
+                <div class="comparison-result">
+                    <p id="comparison-result-text"></p>
+                </div>
+                <div class="comparison-card">
+                    <p>对手弃牌</p>
+                    <div id="ai-played-card"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Window for Questions -->
+        <div id="question-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3 id="question-modal-title">试炼开始！</h3>
+                <div id="reward-card-display">
+                    <!-- Reward card will be shown here -->
+                </div>
+                <div id="question-content">
+                    <p id="question-text"></p>
+                    <div id="answer-choices">
+                        <!-- Multiple choice answers will be added here -->
+                    </div>
+                </div>
+                <div id="question-feedback" class="hidden">
+                    <p id="feedback-text"></p>
+                    <button id="continue-btn" class="game-btn">继续游戏</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="src/main.ts"></script>
+</body>
+</html>
+
