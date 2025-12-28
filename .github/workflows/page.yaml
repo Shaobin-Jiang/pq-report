@@ -43,8 +43,7 @@ jobs:
       - name: Build
         run: |
           cd frontend
-          tsc
-          vite build --config config.js
+          npm run gh
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
