@@ -1,0 +1,257 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2025
+
+\usepackage[main, final]{neurips_2025}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{graphicx}       % for figures
+\usepackage{amsmath}        % for math formatting
+\usepackage{subcaption}
+
+\title{LLM-Generated Questions Can Enhance Student Performance in Game-Based Learning}
+
+\author{%
+  Shaobin Jiang\\
+  Beijing Zhongguancun Academy\\
+  \texttt{shaobin-jiang@outlook.com} \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Game-based learning (GBL) offers a promising avenue for fostering student engagement, yet it faces significant challenges regarding scalability, content generation, and the misalignment between pedagogical goals and game mechanics. While Large Language Models (LLMs) have demonstrated the capacity to generate educational content efficiently, their integration into effective game loops remains under-explored. This study proposes a novel integration of LLMs within a card game framework, designed to satisfy the psychological needs outlined by Self-Determination Theory. We tested the effect of this new educational game on university students in a programming course and found out that students in the game-based condition performed significantly better on post-experiment assessments compared to the control group using traditional drills. These findings suggest that the generative capabilities of LLMs can indeed be used in game based learning to enhance students' overall performance.
+\end{abstract}
+
+\section{Introduction}
+
+There has been no shortage of attempts to integrate video games into the student learning process. This practice of embedding learning content within a playful environment, known as game-based learning (GBL), seeks to harness the motivational power of games to foster student engagement \citep{boekaerts_emotions_2015}. Numerous studies and reviews have demonstrated that educational games can improve student performance; for instance, a recent review found that digital games in STEM education yield significant gains in knowledge and cognitive skills \citep{gui_effectiveness_2023}.
+
+Based on these theories, a vast number of learning games have been created (e.g., \citet{koupritzioti_pydiophantus_2020}; \citet{dominguez_gamifying_2013}; \citet{jiang_httpsgithubcomshaobin-jiangcourse-game_2023}). These games target different subjects and take various forms, ranging from 2D maze games to complex 3D environments. Yet, despite the aforementioned promise, GBL is not without its challenges. In practice, educational games are often manually designed by creators, giving rise to inefficiency. Researchers have highlighted that many of these games are not scalable, limiting reuse, maintenance, and broad adoption (\citet{de_smet_qualitative_2024}; \citet{bernard_examining_nodate}).
+
+Furthermore, these games can be tedious (e.g., \citet{sobke_sewer_2018}) because they often suffer from a misalignment between pedagogical intent and game mechanics. This leads to superficial engagement or extrinsic motivation rather than sustained, intrinsic immersion. Questions are frequently arranged in a linear fashion, gameplay remains static without offering alternatives, and the primary reward is simply finishing the task. More often than not, students encounter what are essentially traditional drills cloaked in game-like aesthetics.
+
+These issues often stem from a central tension in game-based learning. Traditional instructional design accentuates learning objectives, assessment, and alignment with the curriculum, whereas commercial game designers emphasize player engagement and reward systems. Thus, while GBL holds potential, in many practical deployments it falls short, appearing inefficient, repetitive, or even dull from the learners’ perspective.
+
+\subsection{Large Language Models for Question Generation}
+
+Parallel to the challenges in game-based learning, a powerful new tool has emerged: large language models (LLMs). Over the past few years, the rapid development of LLMs has rendered it possible to solve complicated tasks \citep{cuskley_limitations_2024, liu_advances_2025}. Naturally, this capability shows great potential for pedagogical purposes, and LLM usage in educational scenarios is increasing. One of the most promising applications is automated educational question generation (AEQG), in which LLMs generate quiz items, formative assessment questions, or prompts aligned with instructional goals.
+
+Recent research shows that LLMs can generate high-quality educational questions that reflect the structure of Bloom’s taxonomy, covering a spectrum of cognitive levels from remembering and understanding to applying, analyzing, evaluating, and creating \citep{scaria_automated_2024}. Complementary work from the SCALE Initiative similarly shows that teachers, when given LLM-generated questions aligned with Bloom’s taxonomy, prefer incorporating them into quizzes and find no loss of quality compared to hand-written items \citep{elkins_how_2025}. \citeauthor{ferreira_mello_bloomllm_2024} (\citeyear{ferreira_mello_bloomllm_2024}) proposed BloomLLM, which is fine-tuned specifically on educational question sets and structured around Bloom’s revised taxonomy.
+
+Although LLMs are not without caveats—issues such as hallucination and misalignment between accuracy and confidence have been observed \citep{chhikara_mind_2025, griot_large_2025}—a growing body of research proves that with optimized prompting techniques (such as chain-of-thought and chain-of-verification) and automated feedback, these problems can be greatly alleviated \citep{dhuliawala_chain--verification_2023, ji_towards_2023, pan_automatically_2023, zhou_context-faithful_2023, zhou_metacognitive_2024}.
+
+Given this evidence, using LLMs in game-based learning to generate questions may offer a solution to the scalability and inefficiency problems. However, while GBL has been embraced with enthusiasm, the combination of LLMs and GBL remains under-explored. While there are cases where LLMs aid student planning \citep{goslen_llm-based_2025}, the potential for using them directly inside educational games to enhance performance requires further investigation.
+
+\subsection{What Makes Games Intriguing}
+
+Researchers have had different approaches to explaining why games are appealing to players. Amidst these, one of the most influential frameworks is the self-determination theory \citep{ryan_motivational_2006}. According to this theory, humans have three basic psychological needs: autonomy, competence, and relatedness, and the degree to which an environment satisfies these needs strongly influences intrinsic motivation. In the context of video games, autonomy is experienced when players feel they can make meaningful choices, chart their own course, and exert control over their actions within the game world. Competence arises through challenge and feedback — players feel capable when they master mechanics, solve puzzles, or progress through difficult content. Relatedness can come from narrative, social interactions, and collaborative or competitive multiplayer experiences \citep{tyack_self-determination_2024}.
+
+In practice, almost no educational games use these mechanisms. This partly arises from the fact that handcrafting numerous questions is exhausting enough, so that it is almost a luxury to create more quality questions to be placed in side quests and too much labor to have adequate questions of varing levels of difficulty. This lack of proper game design tends to bore students and diminishes what good game-based learning could promise.
+
+However, there is one game genre that can be used in such context that might prove to be appealing to players and fit for educational purposes: card games.
+
+Motivationally, card games align closely with the Self-Determination Theory. To be precise, this genre satisfies the three psychological needs as follows:
+\begin{enumerate}
+    \item \textbf{Autonomy:} In a card game, players constantly make meaningful choices—deciding which card to play, which to discard, and how to manage their resources. This contrasts sharply with the linear progression of many educational games.
+    \item \textbf{Competence:} Competence is fostered through the challenge-feedback loop. By mastering the rules and successfully answering questions to unlock card effects, players receive immediate feedback on their skills.
+    \item \textbf{Relatedness:} The presence of an opponent—even a simulated AI—creates a social dynamic. Competing against an entity creates a sense of interaction often missing in solo drills.
+\end{enumerate}
+
+Structurally, card games rely on a general, unvarying form—the card frame—which acts as a container for dynamic content. Unlike narrative-heavy RPGs or level-based maze games that require extensive graphical and spatial design for new content, a card game can theoretically expand infinitely. This makes it a perfect match for the generative capabilities of LLMs.
+
+Based on this framework, this study attempts to design a card game for educational purposes and puts forward this research question: Can game based learning that utilizes LLM-generated questions enhance student performance compared to traditional review methods?
+
+\section{Methods}
+
+To answer the research question, we developed a browser-based card game and conducted a controlled test.
+
+\subsection{Game Design and Mechanics}
+
+The developed game is a turn-based strategy card game (Figure 1) played between a human student and an AI opponent. The deck consists of 52 standard cards (excluding Jokers). The core gameplay loop integrates pedagogical assessment directly into the game mechanics, ensuring that learning is necessary for victory rather than incidental.
+
+\begin{figure*}[t!]
+    \centering
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.2in]{game1.png}
+        \caption{Players start by drawing 4 + 1 cards and then choose a card to discard}
+    \end{subfigure}%
+    ~ 
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.2in]{game2.png}
+        \caption{The discarded cards are compared}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.2in]{game3.png}
+        \caption{The player answers a multi-choice question}
+    \end{subfigure}%
+    ~ 
+    \begin{subfigure}[t]{0.5\textwidth}
+        \centering
+        \includegraphics[height=1.2in]{game4.png}
+        \caption{Explanation of the question is provided}
+    \end{subfigure}
+    \caption{Game Screenshot}
+\end{figure*}
+
+\textbf{Setup:} Both the student and the AI start by drawing four cards. The student can only view their own hand. The game proceeds for 15 rounds.
+
+\textbf{The Core Loop:} Each round consists of the following phases:
+\begin{enumerate}
+    \item \textbf{Draw and Discard:} Both players draw a card and then choose one card to discard (Figure 1a).
+    \item \textbf{Comparison:} The values of the discarded cards are compared (Figure 1b).
+    \item \textbf{Reward Allocation:} A random "Reward Card" is generated for the winner of the comparison. The student wins the reward if their card is strictly larger; the AI wins if its card is greater than or equal to the student's.
+    \item \textbf{The Pedagogical Gate:} The student is presented with a multiple-choice question generated by the LLM based on the course material (Figure 1c).
+    \begin{itemize}
+        \item \textbf{Correct Answer:} If the student holds the Reward Card, they can activate it. If the AI holds the Reward Card, the AI is blocked from using it.
+        \item \textbf{Incorrect Answer:} If the student holds the Reward Card, the activation fails. If the AI holds the Reward Card, it successfully activates the effect against the student.
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Winning Condition:} After 15 rounds, a final score is calculated: $Score = \sum(\text{Hand Values}) \times Rate$. The player with the higher score wins.
+
+\textbf{Reward Effects:} To ensure strategic depth, five types of reward cards were implemented:
+\begin{enumerate}
+    \item Increase the player's Rate by 2.
+    \item Add one card to the hand (increasing potential final sum).
+    \item Force the opponent to discard their smallest card (disruption).
+    \item Add half the value of the just-discarded card to the Rate.
+    \item Reduce the opponent's Rate by 50\%.
+\end{enumerate}
+
+\subsection{Technical Implementation}
+
+The game client was built using TypeScript and the Vite frontend build tool with consideration for a responsive, modern web interface in mind. The backend integration for question generation utilized the DeepSeek-Reasoner API.
+
+For this experiment, the LLM was provided with a system prompt:
+\begin{quote}
+    \texttt{"<PLACEHOLDER: to be filled later>"}
+\end{quote}
+
+\subsection{Experiment Setup}
+
+We recruited 32 participants from Beijing Normal University who were enrolled in a jsPsych programming course. This course focuses on using JavaScript for psychological experiments. Participants were randomly assigned to two groups ($n=16$ per group):
+\begin{itemize}
+    \item \textbf{Game Group:} Used the developed card game to review course material over the weekend.
+    \item \textbf{Standard Group:} Used a traditional quiz interface to review the exact same number of questions over the weekend, but without game mechanics (visuals, scores, or competitive elements).
+\end{itemize}
+
+Following the review period, both groups took the same comprehensive exam, the questions for which were manually designed by the course instructor to ensure validity and independence from the LLM generation process.
+
+\section{Results}
+
+We analyzed the exam performance of the two groups using independent samples t-tests. The data collected included the primary exam score and a secondary performance metric (denoted here as practical application tasks).
+
+\begin{figure*}[t!]
+    \centering
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \includegraphics[height=2in]{baseline.png}
+        \caption{Student performance baseline}
+    \end{subfigure}%
+    ~ 
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \includegraphics[height=2in]{review.png}
+        \caption{Student performance in review}
+    \end{subfigure}%
+    ~ 
+    \begin{subfigure}[t]{0.3\textwidth}
+        \centering
+        \includegraphics[height=2in]{exam.png}
+        \caption{Student performance in exam}
+    \end{subfigure}
+    \caption{Experiment Result}
+\end{figure*}
+
+\subsection{Baseline Performance}
+
+The descriptive statistics for students' baseline performance are presented in Table \ref{tab:baseline_results}.
+
+\begin{table}[h]
+  \caption{Student Baseline Performance}
+  \label{tab:baseline_results}
+  \centering
+  \begin{tabular}{lccccc}
+    \toprule
+    Group & $N$ & Mean & SD \\
+    \midrule
+    Game     & 16 & 8.825 & 0.921 \\
+    Standard & 16 & 8.550  & 0.663 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+A Levene's test for equality of variances indicated no significant difference in variance between the groups ($W = 3.344, p = 0.0774$). An independent samples t-test is then conducted which revealed no statistically significant difference between the two groups ($t(30) = 0.9695, p = 0.34$), indicating that there is no sampling bias when assigning these students into the game / standard groups.
+
+\subsection{Review Performance}
+
+The descriptive statistics for students' performance via game-play / quiz are presented in Table \ref{tab:review_results}.
+
+\begin{table}[h]
+  \caption{Comparison of Exam Scores between Game and Standard Groups}
+  \label{tab:review_results}
+  \centering
+  \begin{tabular}{lccccc}
+    \toprule
+    Group & $N$ & Mean & SD \\
+    \midrule
+    Game     & 16 & 10.938 & 1.843 \\
+    Standard & 16 & 9.500  & 1.897 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+A Levene's test for equality of variances indicated no significant difference in variance between the groups ($W = 0.190, p = 0.666$). An independent samples t-test is then conducted which revealed a statistically significant difference between the two groups ($t(30) = 2.174, p = 0.038, Cohen's d = 0.769$), with the game group ($M = 10.94, SD = 1.84$) outperforming the standard group ($M = 9.50, SD = 1.90$).
+
+\subsection{Exam Performance}
+
+We also compared the performance of the two groups of students in the actual examination after the reviewing process.
+
+\begin{table}[h]
+  \caption{Comparison of Application Scores between Game and Standard Groups}
+  \label{tab:exam_results}
+  \centering
+  \begin{tabular}{lccccc}
+    \toprule
+    Group & $N$ & Mean & SD \\
+    \midrule
+    Game     & 16 & 9.812 & 2.287 \\
+    Standard & 16 & 8.375 & 1.544 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Levene's test again showed equal variances ($W = 2.627, p = 0.116$). The t-test results ($t(30) = 2.084, p = 0.046, Cohen's d = 0.737$) indicated that the game group also scored significantly higher on this metric ($M = 9.81$) compared to the standard group ($M = 8.38$).
+
+Overall, the quantitative results consistently support the hypothesis that the game-based review method led to better academic outcomes than the standard drill method.
+
+\section{Discussion}
+
+The results of this study affirmatively answer our research question: game based learning that utilizes LLM-generated questions is indeed capable of enhancing student performance. The statistical analysis revealed significant improvements in both general exam scores and practical application metrics for the group utilizing the game.
+
+These findings highlight the effectiveness of integrating Generative AI into a robust game loop. Unlike static educational games, the use of LLMs allowed for a dynamic questioning experience that did not require manual database population. Furthermore, the game design successfully leveraged the principles of Self-Determination Theory. By providing strategic choices regarding card management (autonomy), clear win/loss conditions based on knowledge and luck (competence), and a competitive entity (relatedness), the game likely induced a state of engagement superior to that of the traditional quiz format.
+
+Despite these promising results, the study has limitations. First, the sample size was relatively small, limiting the generalizability of the findings. Second, the experiment was conducted in the context of a specific subject (programming); whether these results transfer to non-STEM subjects remains to be tested.
+
+Nevertheless, this study presents a scalable framework for the next generation of Game-Based Learning. By decoupling the game mechanics (the card frame) from the educational content (LLM generation), we have demonstrated a model where a single well-designed game can serve infinite educational topics, potentially solving the inefficiency and scalability issues that have long plagued the field.
+
+\bibliography{refs}
+\bibliographystyle{plainnat}
+
+\end{document}
