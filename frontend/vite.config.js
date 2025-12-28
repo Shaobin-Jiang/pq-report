@@ -1,7 +1,9 @@
+import { defineConfig } from "vite";
+
 export default defineConfig(({command, mode, isSsrBuild, isPreview}) => {
-    if (command === 'gh') {
+    if (command === "gh") {
         return {
-            base: 'https://shaobin-jiang.github.io/pq-report/'
+            base: "https://shaobin-jiang.github.io/pq-report/"
         }
     }
 })
