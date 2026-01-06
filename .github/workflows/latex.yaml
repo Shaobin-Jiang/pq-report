@@ -31,6 +31,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      TZ=Asia/Shanghai
       # Where your script writes the PDF(s). Use a glob that matches your output.
       # Examples:
       #  - ./dist/*.pdf
@@ -80,7 +81,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          TAG="latex-$(date -u +'%Y%m%d-%H%M%S')"
+          TAG="$(date -u +'%Y%m%d-%H%M%S')"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "Using tag: $TAG"
 
@@ -89,8 +90,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
-          name: ${{ inputs.release_name != '' && inputs.release_name || format('LaTeX build {0}', steps.tag.outputs.tag) }}
-          prerelease: ${{ inputs.prerelease }}
+          name: ${{ format('LaTeX build {0}', steps.tag.outputs.tag) }}
+          prerelease: false
           generate_release_notes: true
           files: |
             ${{ env.OUTPUT_GLOB }}
