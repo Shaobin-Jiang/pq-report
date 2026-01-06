@@ -59,7 +59,7 @@ jobs:
       - name: Run custom LaTeX build script
         run: |
           set -euo pipefail
-          cd .report
+          cd ./report
           sh ./compile.sh
 
       - name: Validate outputs exist
