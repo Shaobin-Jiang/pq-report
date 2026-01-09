@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TZ=Asia/Shanghai
+      TZ: Asia/Shanghai
       # Where your script writes the PDF(s). Use a glob that matches your output.
       # Examples:
       #  - ./dist/*.pdf
